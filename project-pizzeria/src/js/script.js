@@ -66,7 +66,9 @@
       // Generate a HTML code based on template
       const generatedHTML = templates.menuProduct(thisProduct.data);
       // Create element using utils.createElementFromHTML 
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
       // Find a MENU container in the website.
+      const menuContainer = document.querySelector(select.containerOf.menu);
       // add created DOM element to MENU container.
 
     }
