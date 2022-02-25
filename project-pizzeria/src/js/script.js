@@ -70,6 +70,7 @@
       // Find a MENU container in the website.
       const menuContainer = document.querySelector(select.containerOf.menu);
       // add created DOM element to MENU container.
+      menuContainer.appendChild(thisProduct.element);
 
     }
   }
