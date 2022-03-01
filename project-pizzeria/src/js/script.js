@@ -123,6 +123,16 @@
       });
   
     }
+
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('IOF: ', thisProduct);
+    }
+    processOrder() {
+      const thisProduct = this;
+      console.log('IOF: ', thisProduct);
+    }
+
   }
   const app = {
     initMenu: function(){
