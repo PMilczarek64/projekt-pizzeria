@@ -87,6 +87,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -165,19 +166,37 @@
 
         // for every option in this category
         for(let optionId in param.options) {
+
+          // Find image
+          const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          console.log('iamge: ', image);
+
           // determine option value, e.g. optionId = 'olives', option = {label: 'Olives', price: 2, default: true}
           const option = param.options[optionId];
           console.log('optionId, option: ',optionId, option);
 
-          //check if 
           const selected = formData.hasOwnProperty(paramId) && formData[paramId].includes(optionId);
           const defaultOption = (option.default == true) ;
+          //
           if(selected) {
-              if(!defaultOption) {
-                price = price + option.price;
-              }
-          } else if (defaultOption) {
+            //If option is checked add active class for img
+            if(image !== null) {
+              console.log(image.classList);
+              image.classList.add(classNames.menuProduct.imageVisible);
+            }
+            // if option isn't default option and is checked add option price to the sum
+            if(!defaultOption) {
+              price = price + option.price;
+            }
+          //If option is not checked remove active class from img
+          } else {
+            if(image !== null) {
+              image.classList.remove(classNames.menuProduct.imageVisible);
+            }
+            //If option is default and is not checked - decrease product price
+            if (defaultOption) {
               price = price - option.price;
+            }
           }
         }
       }
