@@ -210,11 +210,14 @@
     constructor(element){
       const thisWidget = this;
 
+      thisWidget.getElements(element);
+
+      thisWidget.setValue(thisWidget.input.value);
+
+      thisWidget.initActions();
+
       console.log('AmountWidget ', thisWidget)
       console.log('constructor arguments: ', element)
-
-      thisWidget.getElements(element);
-      thisWidget.setValue(thisWidget.input.value);
     }
     getElements(element){
       const thisWidget = this;
@@ -238,6 +241,23 @@
         thisWidget.value = newValue;
       }
     }
+      initActions(){
+        const thisWidget = this;
+
+        thisWidget.input.addEventListener('change', function(){
+
+          thisWidget.setValue(thisWidget.input.value);
+        });
+        thisWidget.linkDecrease.addEventListener('click', function(event){
+          event.preventDefault();
+          thisWidget.setValue(thisWidget.value --);
+        });
+        thisWidget.linkIncrease.addEventListener('click', function(event){
+          event.preventDefault();
+          thisWidget.setValue(thisWidget.value ++);
+        });
+      }
+
   }
   const app = {
     initMenu: function(){
