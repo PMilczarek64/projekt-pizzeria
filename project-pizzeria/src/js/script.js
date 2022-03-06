@@ -214,6 +214,7 @@
       console.log('constructor arguments: ', element)
 
       thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
     }
     getElements(element){
       const thisWidget = this;
@@ -222,6 +223,20 @@
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value){
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      // TO DO: Add validation
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+      console.log('not null? ',isNaN(newValue))
+      if(thisWidget.value !== newValue && !isNaN(newValue)){
+        thisWidget.value = newValue;
+      }
     }
   }
   const app = {
