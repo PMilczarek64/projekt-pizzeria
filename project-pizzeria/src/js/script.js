@@ -57,15 +57,11 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
-
       thisProduct.renderInMenu();
-      console.log('new Product: ', thisProduct);
-
       thisProduct.getElements();
-      console.log('getElement: ', thisProduct);
-
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     renderInMenu(){
@@ -88,6 +84,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget)
     }
 
     initAccordion(){
@@ -115,7 +112,7 @@
         /* if there is active product and it's not thisProduct.element, remove class active from it */
 
         for(let activeProduct of activeProducts) {
-          console.log('activeProduct: ', activeProduct);
+         // console.log('activeProduct: ', activeProduct);
           if(activeProduct != thisProduct.element) {
             activeProduct.classList.remove('active');
           }
@@ -129,7 +126,7 @@
 
     initOrderForm() {
       const thisProduct = this;
-      console.log('iOF: ', thisProduct);
+     // console.log('iOF: ', thisProduct);
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -149,10 +146,10 @@
     }
     processOrder() {
       const thisProduct = this;
-      console.log('pO: ', thisProduct);
+      // console.log('pO: ', thisProduct);
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData: ', formData);
+      //console.log('formData: ', formData);
 
       //set price to default price
       let price = thisProduct.data.price;
@@ -162,18 +159,18 @@
 
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log('paramId, param: ',paramId, param);
+       // console.log('paramId, param: ',paramId, param);
 
         // for every option in this category
         for(let optionId in param.options) {
 
           // Find image
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log('iamge: ', image);
+        //  console.log('iamge: ', image);
 
           // determine option value, e.g. optionId = 'olives', option = {label: 'Olives', price: 2, default: true}
           const option = param.options[optionId];
-          console.log('optionId, option: ',optionId, option);
+        //  console.log('optionId, option: ',optionId, option);
 
           const selected = formData.hasOwnProperty(paramId) && formData[paramId].includes(optionId);
           const defaultOption = (option.default == true) ;
@@ -181,7 +178,7 @@
           if(selected) {
             //If option is checked add active class for img
             if(image !== null) {
-              console.log(image.classList);
+           //   console.log(image.classList);
               image.classList.add(classNames.menuProduct.imageVisible);
             }
             // if option isn't default option and is checked add option price to the sum
@@ -203,12 +200,25 @@
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+    }
+  }
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+
+      console.log('AmountWidget ', thisWidget)
+      console.log('constructor arguments: ', element)
+    }
   }
   const app = {
     initMenu: function(){
       const thisApp = this;
 
-      console.log('thisApp.data: ', thisApp.data);
+     // console.log('thisApp.data: ', thisApp.data);
       
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
@@ -222,11 +232,11 @@
     },
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+     // console.log('*** App starting ***');
+     // console.log('thisApp:', thisApp);
+     // console.log('classNames:', classNames);
+     // console.log('settings:', settings);
+     // console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
