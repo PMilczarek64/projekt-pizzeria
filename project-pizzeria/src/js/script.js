@@ -84,7 +84,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget)
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion(){
@@ -112,7 +112,7 @@
         /* if there is active product and it's not thisProduct.element, remove class active from it */
 
         for(let activeProduct of activeProducts) {
-         // console.log('activeProduct: ', activeProduct);
+          // console.log('activeProduct: ', activeProduct);
           if(activeProduct != thisProduct.element) {
             activeProduct.classList.remove('active');
           }
@@ -126,7 +126,7 @@
 
     initOrderForm() {
       const thisProduct = this;
-     // console.log('iOF: ', thisProduct);
+      // console.log('iOF: ', thisProduct);
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -159,18 +159,18 @@
 
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-       // console.log('paramId, param: ',paramId, param);
+        // console.log('paramId, param: ',paramId, param);
 
         // for every option in this category
         for(let optionId in param.options) {
 
           // Find image
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-        //  console.log('iamge: ', image);
+          //  console.log('iamge: ', image);
 
           // determine option value, e.g. optionId = 'olives', option = {label: 'Olives', price: 2, default: true}
           const option = param.options[optionId];
-        //  console.log('optionId, option: ',optionId, option);
+          //  console.log('optionId, option: ',optionId, option);
 
           const selected = formData.hasOwnProperty(paramId) && formData[paramId].includes(optionId);
           const defaultOption = (option.default == true) ;
@@ -178,7 +178,7 @@
           if(selected) {
             //If option is checked add active class for img
             if(image !== null) {
-           //   console.log(image.classList);
+              //   console.log(image.classList);
               image.classList.add(classNames.menuProduct.imageVisible);
             }
             // if option isn't default option and is checked add option price to the sum
@@ -197,6 +197,7 @@
           }
         }
       }
+      price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
@@ -204,6 +205,10 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
     }
   }
   class AmountWidget {
@@ -212,12 +217,12 @@
 
       thisWidget.getElements(element);
 
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
 
       thisWidget.initActions();
 
-      console.log('AmountWidget ', thisWidget)
-      console.log('constructor arguments: ', element)
+      console.log('AmountWidget ', thisWidget);
+      console.log('constructor arguments: ', element);
     }
     getElements(element){
       const thisWidget = this;
@@ -233,37 +238,41 @@
       const newValue = parseInt(value);
 
       // TO DO: Add validation
-
-      thisWidget.value = newValue;
-      thisWidget.input.value = thisWidget.value;
-      console.log('not null? ',isNaN(newValue))
-      if(thisWidget.value !== newValue && !isNaN(newValue)){
+      console.log('not null? ',isNaN(newValue));
+      if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
       }
+      thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
     }
-      initActions(){
-        const thisWidget = this;
+    initActions(){
+      const thisWidget = this;
 
-        thisWidget.input.addEventListener('change', function(){
+      thisWidget.input.addEventListener('change', function(){
 
-          thisWidget.setValue(thisWidget.input.value);
-        });
-        thisWidget.linkDecrease.addEventListener('click', function(event){
-          event.preventDefault();
-          thisWidget.setValue(thisWidget.value --);
-        });
-        thisWidget.linkIncrease.addEventListener('click', function(event){
-          event.preventDefault();
-          thisWidget.setValue(thisWidget.value ++);
-        });
-      }
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function(event){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });     
+    }
+    announce(){
+      const thisWidget = this;
 
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
   }
   const app = {
     initMenu: function(){
       const thisApp = this;
 
-     // console.log('thisApp.data: ', thisApp.data);
+      // console.log('thisApp.data: ', thisApp.data);
       
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
@@ -277,11 +286,11 @@
     },
     init: function(){
       const thisApp = this;
-     // console.log('*** App starting ***');
-     // console.log('thisApp:', thisApp);
-     // console.log('classNames:', classNames);
-     // console.log('settings:', settings);
-     // console.log('templates:', templates);
+      // console.log('*** App starting ***');
+      // console.log('thisApp:', thisApp);
+      // console.log('classNames:', classNames);
+      // console.log('settings:', settings);
+      // console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
