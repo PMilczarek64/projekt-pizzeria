@@ -1,10 +1,10 @@
 import { settings, select, classNames, } from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 const app = {
   initPages: function(){
     const thisApp = this;
-
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
 
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
@@ -63,6 +63,11 @@ const app = {
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
   },
+  initBooking: function(){
+    const thisApp = this;
+    const bookingWrapper = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(bookingWrapper);
+  },
   initData: function () {
     const thisApp = this;
 
@@ -107,6 +112,7 @@ const app = {
     thisApp.initPages();
     thisApp.initData();
     app.initCart();
+    app.initBooking();
   },
 };
 app.init();

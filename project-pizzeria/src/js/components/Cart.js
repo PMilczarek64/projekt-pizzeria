@@ -66,13 +66,14 @@ class Cart{
   }
   update(){
     const thisCart = this;
-
     thisCart.totalNumber = 0;
     thisCart.subtotalPrice = 0;
-
     for(let product of thisCart.products) {
+      console.log('hej', product);
       thisCart.totalNumber += product.amount;
+      console.log(thisCart.totalNumber);
       thisCart.subtotalPrice += product.price;
+      console.log(thisCart.subtotalPrice);
     }
     if (thisCart.totalNumber > 0){
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;

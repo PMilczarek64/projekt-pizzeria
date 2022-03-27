@@ -20,6 +20,7 @@
     } ],
     "unit-whitelist": null,
     "scss/selector-no-redundant-nesting-selector": true,
-    "scss/no-duplicate-dollar-variables": true
+    "scss/no-duplicate-dollar-variables": true,
+    "scss/at-extend-no-missing-placeholder": true
   }
 }
