@@ -202,10 +202,10 @@
           }
        }
     ],
-    "events": [
+    "event": [
       {
         "id": 1,
-        "date": "2021-01-01",
+        "date": "2022-03-29",
         "hour": "12:30",
         "table": 1,
         "repeat": false,
@@ -254,6 +254,17 @@
         "starters": ["lemonWater"]
       }
     ],
-    "bookings": [],
+    "booking": [
+      {
+         "id": 1,
+         "date": "2022-03-29",
+         "hour": "22:30",
+         "table": 1,
+         "repeat": false,
+         "duration": 4,
+         "ppl": 3,
+         "starters": []
+       }
+    ],
     "orders":[]
  }

@@ -13,10 +13,10 @@ class BaseWidget{
   }
   set value(value){
     const thisWidget = this;
-    
+
     const newValue = thisWidget.parseValue(value);
     
-    if(thisWidget.correctValue != newValue && thisWidget.isValid(newValue)){
+    if(thisWidget.correctValue != newValue && !isNaN(newValue) || thisWidget.isValid(newValue) ){ // !isNaN(newValue) temporarily to fix a bug while adding Product to cart
       thisWidget.correctValue = newValue;
       thisWidget.announce();
     }
