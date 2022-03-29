@@ -13,10 +13,10 @@ class BaseWidget{
   }
   set value(value){
     const thisWidget = this;
-
+    
     const newValue = thisWidget.parseValue(value);
     
-    if(thisWidget.correctValue !== newValue && !isNaN(newValue) && thisWidget.isvalid(newValue)){
+    if(thisWidget.correctValue != newValue && thisWidget.isValid(newValue)){
       thisWidget.correctValue = newValue;
       thisWidget.announce();
     }
