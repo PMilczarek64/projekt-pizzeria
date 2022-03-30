@@ -205,7 +205,7 @@
     "event": [
       {
         "id": 1,
-        "date": "2022-03-29",
+        "date": "2022-03-30",
         "hour": "12:30",
         "table": 1,
         "repeat": false,
@@ -255,16 +255,6 @@
       }
     ],
     "booking": [
-      {
-         "id": 1,
-         "date": "2022-03-29",
-         "hour": "22:30",
-         "table": 1,
-         "repeat": false,
-         "duration": 4,
-         "ppl": 3,
-         "starters": []
-       }
     ],
     "orders":[]
  }
