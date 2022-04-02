@@ -7,9 +7,12 @@ import HourPicker from './HourPicker.js';
 class Booking {
   constructor(element){
     const thisBooking = this;
+    thisBooking.tableSelected = '';
+
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.initTables();
   }
   getData(){
     const thisBooking = this;
@@ -148,6 +151,35 @@ class Booking {
       }
     }
   }
+  initTables(){
+    const thisBooking = this;
+    for( let table of thisBooking.dom.tables){
+      table.addEventListener('click', function(event){
+        //console.log('tables length: ',thisBooking.dom.tables);
+        //console.log('tables length: ',thisBooking.dom.tables.length);
+        let tablesLength = thisBooking.dom.tables.length;
+        for(let tableID = 0; tableID < tablesLength; tableID++){
+          if  (thisBooking.dom.tables[tableID] === event.target)
+            continue;
+
+          thisBooking.dom.tables[tableID].classList.remove(classNames.booking.tableSelected);
+        }
+        if(table.classList.contains(classNames.booking.tableBooked)){
+          alert('Ten stolik jest zajęty');
+        } else {
+          table.classList.toggle(classNames.booking.tableSelected);
+          thisBooking.tableSelected = table.getAttribute('data-table');
+        }
+        //console.log('data table value ',thisBooking.tableSelected);
+      });
+    }
+  }
+  resetTables(){
+    const thisBooking = this;
+    for(let table of thisBooking.dom.tables){
+      table.classList.remove(classNames.booking.tableSelected);
+    }
+  }
   render(element){
     const thisBooking = this;
     const generatedHTML = templates.bookingWidget();
@@ -169,6 +201,7 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDom();
+      thisBooking.resetTables();
     });
   }
 }
