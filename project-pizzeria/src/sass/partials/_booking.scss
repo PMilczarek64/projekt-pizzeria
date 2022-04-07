@@ -157,6 +157,13 @@
   
     }
 
+    &.selected {
+      color: lighten(rgb(13, 97, 2), 10%);
+      border: 3px solid greenyellow;
+      transform: rotate(405deg);
+      font-size: 14px;
+      transition: 0.5s;
+    }
     &.booked {
       cursor: not-allowed;
       color: lighten($color-dark, 40%);
@@ -198,8 +205,4 @@
 .booking-options {
   @include flex(row, flex-start, space-between);
   margin: ($base-size * 4) auto;
-}
-.selected {
-  color: lighten(rgb(13, 97, 2), 10%);
-  border: 3px solid greenyellow;
 }
