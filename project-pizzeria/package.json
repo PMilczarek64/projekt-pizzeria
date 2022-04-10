@@ -46,6 +46,7 @@
         "stylelint-scss": "^3.5.4"
     },
     "dependencies": {
-        "json-server": "^0.17.0"
+        "json-server": "^0.17.0",
+        "tiny-slider": "^2.9.4"
     }
 }
