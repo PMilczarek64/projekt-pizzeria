@@ -16,7 +16,7 @@ class BaseWidget{
 
     const newValue = thisWidget.parseValue(value);
     
-    if(thisWidget.correctValue != newValue && !isNaN(newValue) || thisWidget.isValid(newValue) ){ // !isNaN(newValue) temporarily to fix a bug while adding Product to cart
+    if(thisWidget.correctValue != newValue &&  thisWidget.isValid(newValue) ){
       thisWidget.correctValue = newValue;
       thisWidget.announce();
     }
@@ -30,7 +30,7 @@ class BaseWidget{
   parseValue(value){
     return parseInt(value);
   }
-  isvalid(value){
+  isValid(value){
     return !isNaN(value);
   }
   renderValue(){

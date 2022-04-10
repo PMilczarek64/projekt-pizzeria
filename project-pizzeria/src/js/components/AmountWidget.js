@@ -1,12 +1,12 @@
 import {settings, select} from '../settings.js';
 import BaseWidget from './BaseWidgets.js';
 class AmountWidget extends BaseWidget {
-  constructor(element){
+  constructor(element, value = settings.amountWidget.defaultValue){
     super(element, settings.amountWidget.defaultValue);
     const thisWidget = this;
 
     thisWidget.getElements(element);
-
+    thisWidget.value = value;
     thisWidget.initActions();
 
     //console.log('AmountWidget ', thisWidget);

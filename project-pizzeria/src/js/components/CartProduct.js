@@ -31,13 +31,10 @@ class CartProduct {
   initAmountWidget(){
     const thisCartProduct = this;
 
-    thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
-
-    thisCartProduct.dom.amountWidget.addEventListener('updated', function() {
-      thisCartProduct.amount = thisCartProduct.amountWidget.value;
-      thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
-      thisCartProduct.dom.price.innerHTML = thisCartProduct.price; 
-    });
+    thisCartProduct.amountWidget = new AmountWidget(
+      thisCartProduct.dom.amountWidget,
+      thisCartProduct.amount
+    );
   }
   remove(){
     const thisCartProduct = this;
