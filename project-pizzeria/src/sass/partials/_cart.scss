@@ -157,3 +157,15 @@
   }
 
 }
+
+@media (max-width: 590px) {
+  .cart{
+    width: 230px;
+    .fa-trash-alt{
+      transform: scale(1.2);
+    }
+    .fa-pencil-alt{
+      display: none;
+    }
+  }
+}

@@ -143,4 +143,9 @@ var slider = tns({
   navPosition: 'bottom',
   autoplay: true,
   autoplayButtonOutput: false,
+  responsive: {
+    640: {
+      mouseDrag: true,
+    }
+  }
 });
