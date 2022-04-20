@@ -19,10 +19,16 @@ class AmountWidget extends BaseWidget {
     thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
-  isvalid(value){
+  /*isvalid(value){
     return !isNaN(value)
     && value >= settings.amountWidget.defaultMin 
     && value <= settings.amountWidget.defaultMax;
+  }*/
+  maxAmount(value){  
+    return value <= settings.amountWidget.defaultMax;
+  }
+  minAmount(value){
+    return value >= settings.amountWidget.defaultMin;
   }
   renderValue(){
     const thisWidget = this;
@@ -37,12 +43,16 @@ class AmountWidget extends BaseWidget {
       thisWidget.setValue(thisWidget.dom.input.value);
     });
     thisWidget.dom.linkDecrease.addEventListener('click', function(event){
-      event.preventDefault();
-      thisWidget.setValue(thisWidget.value - 1);
+      event.preventDefault();   
+      if(thisWidget.minAmount(thisWidget.dom.input.value)){
+        thisWidget.setValue(thisWidget.value - 1);
+      }
     });
     thisWidget.dom.linkIncrease.addEventListener('click', function(event){
       event.preventDefault();
-      thisWidget.setValue(thisWidget.value + 1);
+      if(thisWidget.maxAmount(thisWidget.dom.input.value)){
+        thisWidget.setValue(thisWidget.value + 1);
+      }
     });     
   }
 }

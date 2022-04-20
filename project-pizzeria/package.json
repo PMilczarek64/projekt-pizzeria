@@ -10,7 +10,6 @@
         "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
         "init:gitignore:custom": "echo \"dist\" >> .gitignore",
         "test": "npm-run-all test:*",
-        "test:html": "html-validate src/*.html",
         "test:js": "eslint src/js/",
         "build": "npm-run-all build:* test",
         "build:clean": "rimraf dist && mkdirp dist",

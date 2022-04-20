@@ -250,7 +250,7 @@ input.error, select.error {
 
 .header {
   padding: 60px 0 96px 0;
-  background: #333;
+  background-image: url("../../images/assets/pizza-header1.jpg");
   color: #fff;
 }
 
