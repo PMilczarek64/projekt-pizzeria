@@ -135,7 +135,7 @@ const app = {
   },
 };
 app.init();
-
+/* eslint-disable */
 var slider = tns({
   container: '.my-slider',
   items: 1,
@@ -149,3 +149,4 @@ var slider = tns({
     }
   }
 });
+/* eslint-enable */
